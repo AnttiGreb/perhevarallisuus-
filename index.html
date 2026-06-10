@@ -1,0 +1,128 @@
+﻿<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perheen varallisuussuunnitelma</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="loginPage" class="login-page">
+    <section class="login-panel">
+      <p id="loginEyebrow" class="eyebrow">Perheen varallisuussuunnitelma</p>
+      <h1 id="loginTitle">Kirjaudu sisään</h1>
+      <p id="loginSubtitle" class="muted">Käytä rekisteröityä sähköpostia tai luo uusi käyttäjä.</p>
+      <form id="loginForm" class="form-stack">
+        <label id="loginEmailLabel">Sähköposti<input id="loginEmail" type="email" placeholder="nimi@example.com" required /></label>
+        <p id="authMessage" class="auth-message" role="status"></p>
+        <div class="login-actions">
+          <button id="loginBtn" class="primary-button" type="submit">Jatka</button>
+          <button id="registerBtn" class="ghost-button" type="button">Rekisteröidy</button>
+        </div>
+      </form>
+      <p class="login-hint">Syötät sähköpostin → saat kertakäyttöisen koodin → kirjaudut sisään. Ei salasanoja.</p>
+    </section>
+  </main>
+
+  <header class="topbar">
+    <div>
+      <p id="appEyebrow" class="eyebrow editable-title" tabindex="0">Perheen varallisuussuunnitelma</p>
+      <h1 id="appTitle" class="editable-title" tabindex="0">Varallisuus</h1>
+    </div>
+    <div class="topbar-actions">
+      <label id="languagePickerLabel" class="language-picker"><span id="languageFlag" class="flag-badge flag-fi"></span>
+        <select id="languageSelect" aria-label="Kieli">
+          <option value="fi">FI</option>
+          <option value="en">ENG</option>
+          <option value="ru">RU</option>
+        </select>
+      </label>
+      <button id="openProfilePageBtn" class="profile-top-button" type="button"><span id="profileInitials">P</span><strong id="profileButtonText">Profiili</strong></button>
+      <label id="currencyPickerLabel" class="currency-picker">Valuutta
+        <select id="currencySelect">
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+          <option value="RUB">RUB</option>
+        </select>
+      </label>
+      <button id="exportBtn" class="ghost-button" type="button">Vie tiedot</button>
+      <label id="importLabel" class="ghost-button file-button">Tuo tiedot<input id="importInput" type="file" accept="application/json" /></label>
+      <button id="logoutBtn" class="ghost-button" type="button">Kirjaudu ulos</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="wealth-hero" aria-label="Perheen varallisuuden yleiskuva">
+      <div class="wealth-hero-main">
+        <span class="hero-kicker">Family Capital</span>
+        <h2>Perheen varallisuus</h2>
+        <strong id="heroNetWorth">0,00 €</strong>
+        <p id="heroMonthlyGrowth" class="hero-trend">+0,00 € tässä kuussa</p>
+      </div>
+      <div class="hero-kpis">
+        <article><span>Säästöaste</span><strong id="heroSavingsRate">0 %</strong></article>
+        <article><span>Sijoitukset</span><strong id="heroInvestmentShare">0 %</strong></article>
+        <article><span>Tavoitteet</span><strong id="heroGoalProgress">0 %</strong></article>
+      </div>
+    </section>
+
+    <section class="summary-grid" aria-label="Varallisuuden yhteenveto">
+      <article class="metric assets clickable-summary-metric" role="button" tabindex="0" data-open-summary-detail="assets"><span>Varallisuus yhteensä</span><strong id="totalAssets">0,00 €</strong></article>
+      <article class="metric debt clickable-summary-metric" role="button" tabindex="0" data-open-summary-detail="debt"><span>Velka yhteensä</span><strong id="totalDebt">0,00 €</strong></article>
+      <article class="metric networth clickable-summary-metric" role="button" tabindex="0" data-open-summary-detail="netWorth"><span>Oma varallisuus</span><strong id="netWorth">0,00 €</strong></article>
+    </section>
+
+    <section class="panel planner-panel">
+      <div class="planner-top">
+        <nav id="customTabs" class="tabs" aria-label="Omat välilehdet"></nav>
+        <div class="tab-actions">
+          <button id="openTabEditDialogBtn" class="icon-button small-icon-button" type="button" title="Muokkaa välilehteä">✎</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="pageCards" class="card-board" aria-label="Välilehden kortit"></section>
+  </main>
+
+  <main id="profilePage" class="profile-page app-shell" hidden>
+    <section class="profile-hero">
+      <button id="backToAppBtn" class="ghost-button" type="button">Takaisin</button>
+      <div class="profile-identity">
+        <div id="profileAvatar" class="profile-avatar">P</div>
+        <div>
+          <p id="profilePageEyebrow" class="eyebrow">Käyttäjäprofiili</p>
+          <h1 id="profilePageTitle">Profiili</h1>
+          <p id="profilePageSubtitle" class="muted">Nimi, syntymäpäivä, lapset, kieli ja valuutta</p>
+        </div>
+      </div>
+    </section>
+    <section id="profilePageBody" class="profile-page-body"></section>
+  </main>
+
+  <dialog id="budgetDialog"><form id="budgetForm" class="modal-form"><h2>Uusi budjetti</h2><label>Kategoria<select id="budgetCategory" required></select></label><label>Kuukausiraja<input id="budgetLimit" type="number" min="1" step="1" required /></label><menu><button id="cancelBudgetBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna</button></menu></form></dialog>
+  <dialog id="goalDialog"><form id="goalForm" class="modal-form"><h2>Uusi tavoite</h2><label>Nimi<input id="goalName" type="text" placeholder="Kesäloma" required /></label><div class="form-row"><label>Tavoite<input id="goalTarget" type="number" min="1" step="1" required /></label><label>Säästetty<input id="goalSaved" type="number" min="0" step="1" required /></label></div><menu><button id="cancelGoalBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna</button></menu></form></dialog>
+  <dialog id="debtDialog"><form id="debtForm" class="modal-form"><h2 id="debtDialogTitle">Uusi velka</h2><input id="debtId" type="hidden" /><label>Nimi<input id="debtName" type="text" placeholder="Asuntolaina" required /></label><div class="form-row"><label id="debtPrincipalLabel">Nykyinen saldo<input id="debtPrincipal" type="number" min="0" step="0.01" required /></label><label>Alkuperäinen saldo<input id="debtOriginalPrincipal" type="number" min="0" step="0.01" required /></label></div><div class="form-row"><label>Lainan nostopäivä<input id="debtDrawdownDate" type="date" /></label><label>Tyyppi<select id="debtLoanType"><option value="annuity">Annuiteetti</option><option value="equalPrincipal">Tasalyhennys</option></select></label></div><div class="form-row"><label>Vuosikorko %<input id="debtRate" type="number" min="0" step="0.01" required /></label><label>Nykyinen kk-erä<input id="debtPayment" type="number" min="0" step="0.01" required /></label></div><div class="form-row"><label>Alkuperäinen kk-erä<input id="debtOriginalPayment" type="number" min="0" step="0.01" required /></label><label>Alkuperäinen viimeisen erän maksupäivä<input id="debtOriginalPayoffDate" type="date" /></label></div><p id="debtInterestEstimate" class="event-preview">Korkoja koko laina-ajalta arviolta 0,00 €</p><label>Muistiinpano<textarea id="debtNotes" rows="3" placeholder="Esim. pankki, lainaehdot tai huomioita"></textarea></label><section id="debtDetailsPanel" class="modal-section" hidden><div class="with-action"><h3>Velan kehitys</h3><button id="addDebtEventBtn" class="primary-button" type="button">Kirjaa velkatapahtuma</button></div><div id="debtChartBox" class="wealth-chart debt-detail-chart"></div><h3>Tapahtumat</h3><div id="debtEventsList" class="item-list spaced-list"></div></section><menu><button id="cancelDebtBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna</button></menu></form></dialog>
+  <dialog id="assetDialog"><form id="assetForm" class="modal-form"><h2>Uusi omaisuuserä</h2><div class="form-row"><label>Nimi<input id="assetName" type="text" placeholder="Säästö lapset" required /></label><label>Paikka<input id="assetPlace" type="text" placeholder="Pankki, tili, säilytyspaikka" /></label></div><div class="form-row"><label>Arvo<input id="assetValue" type="number" min="0" step="0.01" required /></label><label>Tyyppi<select id="assetType"><option value="savings">Säästö</option><option value="property">Kiinteistö</option><option value="vehicle">Ajoneuvo</option><option value="cash">Talletus</option><option value="other">Muu</option></select></label></div><div class="form-row"><label>Tavoitteen nimi<input id="assetGoalName" type="text" placeholder="Esim. Lasten säästö" /></label><label>Tavoitesumma<input id="assetGoalAmount" type="number" min="0" step="0.01" /></label></div><menu><button id="cancelAssetBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna</button></menu></form></dialog>
+  <dialog id="assetEditDialog"><form id="assetEditForm" class="modal-form"><h2>Omaisuuserä</h2><input id="editAssetId" type="hidden" /><section id="assetOverviewPanel" class="modal-section"></section><div class="form-row"><label>Nimi<input id="editAssetName" type="text" required /></label><label>Paikka<input id="editAssetPlace" type="text" placeholder="Pankki, tili, säilytyspaikka" /></label></div><div class="form-row"><label>Arvo<input id="editAssetValue" type="number" min="0" step="0.01" required /></label><label>Tyyppi<select id="editAssetType"><option value="savings">Säästö</option><option value="property">Kiinteistö</option><option value="vehicle">Ajoneuvo</option><option value="cash">Talletus</option><option value="other">Muu</option></select></label></div><div class="form-row"><label>Tavoitteen nimi<input id="editAssetGoalName" type="text" placeholder="Esim. Lasten säästö" /></label><label>Tavoitesumma<input id="editAssetGoalAmount" type="number" min="0" step="0.01" /></label></div><menu><button id="cancelAssetEditBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna</button></menu></form></dialog>
+  <dialog id="investmentDialog"><form id="investmentDialogForm" class="modal-form"><h2 id="investmentDialogTitle">Muokkaa sijoitusta</h2><input id="investmentId" type="hidden" /><div class="form-row"><label>Nimi<input id="investmentName" type="text" required /></label><label>Paikka<input id="investmentPlace" type="text" placeholder="Nordnet, pankki, arvo-osuustili" /></label></div><div class="form-row"><label>Arvo<input id="investmentValue" type="number" min="0" step="0.01" required /></label><label>Kuukausitalletus<input id="investmentMonthly" type="number" min="0" step="0.01" value="0" /></label></div><div class="form-row"><label>Arvioaika<input id="investmentTargetDate" type="date" /></label><label>Tuotto-odotus % / vuosi<input id="investmentExpectedReturn" type="number" min="-50" step="0.1" value="5" /></label></div><div class="form-row"><label>Tavoitteen nimi<input id="investmentGoalName" type="text" placeholder="Esim. Sofian opintorahasto" /></label><label>Tavoitesumma<input id="investmentGoalAmount" type="number" min="0" step="0.01" /></label></div><label>Tyyppi<select id="investmentType"><option value="fund">Rahasto</option><option value="stock">Osake</option><option value="cash">Käteinen</option><option value="other">Muu</option></select></label><section class="modal-section"><div class="with-action"><h3>Sijoituksen kehitys</h3><button id="addInvestmentEventBtn" class="primary-button" type="button">Kirjaa sijoitustapahtuma</button></div><div id="investmentChartBox" class="wealth-chart debt-detail-chart"></div><h3>Tapahtumat</h3><div id="investmentEventsList" class="item-list spaced-list"></div></section><menu><button id="cancelInvestmentBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna</button></menu></form></dialog>
+  <dialog id="propertyDialog"><form id="propertyForm" class="modal-form"><h2 id="propertyDialogTitle">Uusi kiinteistö</h2><input id="propertyId" type="hidden" /><label>Osoite<input id="propertyAddress" type="text" placeholder="Kotasavuntie 3" required /></label><label>Tyyppi<select id="propertyType"><option value="home">Oma koti</option><option value="rental">Vuokrakohde</option><option value="cottage">Vapaa-ajan asunto</option><option value="other">Muu</option></select></label><div class="form-row"><label>Ostohinta<input id="propertyPurchasePrice" type="number" min="0" step="0.01" required /></label><label>Nykyinen arvo<input id="propertyValue" type="number" min="0" step="0.01" required /></label></div><div class="form-row"><label>Lainaa jäljellä<input id="propertyLoan" type="number" min="0" step="0.01" value="0" /></label><label>Korko %<input id="propertyRate" type="number" min="0" step="0.01" value="0" /></label></div><div class="form-row"><label>Lainan kk-erä<input id="propertyPayment" type="number" min="0" step="0.01" value="0" /></label><label>Vastike / kk<input id="propertyFee" type="number" min="0" step="0.01" value="0" /></label></div><label>Vuokra / kk<input id="propertyRent" type="number" min="0" step="0.01" value="0" /></label><section id="propertyDetailsPanel" class="modal-section" hidden><h3>Kiinteistön tiedot</h3><div id="propertyPhotoGrid" class="photo-grid"></div><label>Kuvat<input id="propertyPhotos" type="file" accept="image/*" multiple /></label><label>Muistiinpanot<textarea id="propertyNotes" rows="4"></textarea></label><div class="form-row"><label>Vuokralaisen etunimi<input id="propertyTenantFirstName" type="text" /></label><label>Vuokralaisen sukunimi<input id="propertyTenantLastName" type="text" /></label></div><label>Vuokralaisen henkilötunnus<input id="propertyTenantId" type="text" /></label><label>Viimeinen vuokratarkastus<input id="propertyRentReviewDate" type="date" /></label></section><section id="propertyCostsPanel" class="modal-section" hidden><h3>Kiinteistön kulut</h3><div class="property-cost-form"><label>Tyyppi<select id="propertyCostType"><option value="fee">Vastike</option><option value="repair">Remontti</option><option value="tax">Vero</option><option value="insurance">Vakuutus</option><option value="utility">Sähkö/vesi</option><option value="other">Muu</option></select></label><label>Summa<input id="propertyCostAmount" type="number" min="0.01" step="0.01" /></label><label>Kesto<select id="propertyCostRecurrence"><option value="monthly">Kuukausikulu</option><option value="oneTime">Kertakulu</option></select></label><label>Päivä<input id="propertyCostDate" type="date" /></label><label>Muistiinpano<input id="propertyCostNote" type="text" /></label><button id="addPropertyCostBtn" class="primary-button" type="button">Lisää kulu</button></div><p id="propertyCostsTotal" class="positive">Kulut yhteensä 0,00 €</p><div id="propertyCostsList" class="car-cost-list"></div></section><menu><button id="cancelPropertyBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna</button></menu></form></dialog>
+  <dialog id="carDialog"><form id="carForm" class="modal-form"><h2 id="carDialogTitle">Uusi auto</h2><input id="carId" type="hidden" /><label>Rekisterinumero<input id="carPlate" type="text" placeholder="ABC-123" required /></label><div class="form-row"><label>Merkki<input id="carBrand" type="text" list="carMakeList" placeholder="Toyota" required /></label><label>Malli<input id="carModel" type="text" list="carModelList" placeholder="Corolla" required /></label></div><datalist id="carMakeList"></datalist><datalist id="carModelList"></datalist><div class="form-row"><label>Valmistusvuosi<input id="carYear" type="number" min="1900" max="2100" step="1" required /></label><label>Hankintavuosi<input id="carPurchaseYear" type="number" min="1900" max="2100" step="1" required /></label></div><div class="form-row"><label>Hankintahinta<input id="carPurchasePrice" type="number" min="0" step="0.01" required /></label><label>Nykyarvo<input id="carCurrentValue" type="number" min="0" step="0.01" required /></label></div><div class="form-row"><label>Lainaa jäljellä<input id="carLoan" type="number" min="0" step="0.01" value="0" /></label><label>Korko %<input id="carRate" type="number" min="0" step="0.01" value="0" /></label></div><label>Lainaerä / kk<input id="carPayment" type="number" min="0" step="0.01" value="0" /></label><section id="carCostsPanel" class="modal-section" hidden><h3>Ylläpitokulut</h3><div class="car-cost-form"><label>Tyyppi<select id="carCostType"><option value="insurance">Vakuutus</option><option value="repair">Remontti</option><option value="tax">Vero</option><option value="tires">Renkaat</option></select></label><label>Summa<input id="carCostAmount" type="number" min="0.01" step="0.01" /></label><label>Päivä<input id="carCostDate" type="date" /></label><label>Muistiinpano<input id="carCostNote" type="text" placeholder="Esim. öljynvaihto" /></label><button id="addCarCostBtn" class="primary-button" type="button">Lisää kulu</button></div><p id="carCostsTotal" class="positive">Ylläpito yhteensä 0,00 €</p><div id="carCostsList" class="car-cost-list"></div></section><menu><button id="cancelCarBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna</button></menu></form></dialog>
+  <dialog id="tabDialog"><form id="newTabForm" class="modal-form"><h2>Uusi välilehti</h2><div id="tabSuggestions" class="suggestion-grid"></div><label>Oma nimi<input id="newTabName" type="text" placeholder="Esim. Autot, Lapset, Tavoitteet" /></label><menu><button id="cancelTabBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Luo välilehti</button></menu></form></dialog>
+  <dialog id="tabEditDialog"><form id="tabEditForm" class="modal-form"><h2>Muokkaa välilehteä</h2><label>Nimi<input id="editTabName" type="text" required /></label><menu><button id="deleteTabConfirmBtn" class="ghost-button danger-ghost" type="button">Poista</button><button id="cancelTabEditBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna</button></menu></form></dialog>
+  <dialog id="cardDialog"><form id="cardForm" class="modal-form"><h2>Lisää diagrammi tai kortti</h2><h3>Diagrammit</h3><div id="chartSuggestions" class="suggestion-grid"></div><h3>Kortit</h3><div id="cardSuggestions" class="suggestion-grid"></div><input id="cardTypeSelect" type="hidden" value="properties" /><menu><button id="cancelCardBtn" class="ghost-button" type="button">Peru</button></menu></form></dialog>
+  <dialog id="eventLogDialog"><section class="modal-form"><div class="with-action"><div><h2>Tapahtumaloki</h2><p class="muted">Kaikki kirjatut muutokset. Klikkaa riviä muokataksesi.</p></div><button id="addEventFromLogBtn" class="primary-button" type="button">Kirjaa tapahtuma</button></div><div id="eventLogDialogList" class="item-list spaced-list"></div><menu><button id="restoreDeletedEventBtn" class="ghost-button" type="button">Palauta viimeksi poistettu</button><button id="closeEventLogBtn" class="ghost-button" type="button">Sulje</button></menu></section></dialog>
+  <dialog id="goalDetailDialog"><section class="modal-form"><div class="with-action"><div><h2 id="goalDetailTitle">Tavoite</h2><p id="goalDetailMeta" class="muted"></p></div><button id="closeGoalDetailBtn" class="ghost-button" type="button">Sulje</button></div><div id="goalDetailChart" class="wealth-chart debt-detail-chart"></div><div id="goalDetailSummary" class="item-list spaced-list"></div></section></dialog>
+  <dialog id="summaryDetailDialog"><section class="modal-form"><div class="with-action"><div><h2 id="summaryDetailTitle">Yhteenveto</h2><p id="summaryDetailText" class="muted"></p></div><button id="closeSummaryDetailBtn" class="ghost-button" type="button">Sulje</button></div><div id="summaryDetailList" class="item-list spaced-list"></div><div id="summaryDetailFormula" class="event-preview summary-total-box"></div></section></dialog>
+  <dialog id="investmentBudgetDialog"><section class="modal-form"><div class="with-action"><div><h2>Sijoitukset budjetissa</h2><p id="investmentBudgetMeta" class="muted"></p></div><button id="closeInvestmentBudgetBtn" class="ghost-button" type="button">Sulje</button></div><div id="investmentBudgetList" class="item-list spaced-list"></div></section></dialog>
+  <dialog id="financialEventDialog"><form id="financialEventForm" class="modal-form"><h2 id="financialEventDialogTitle">Kirjaa tapahtuma</h2><label>Mitä tehdään?<select id="financialEventKind"><option value="debt">Muutos velkaan</option><option value="property">Muutos kiinteistön arvoon</option><option value="investment">Muutos sijoitusarvoon</option></select></label><label>Kohde<select id="financialEventTarget" required></select></label><p id="financialEventCurrent" class="event-preview">Nykyinen arvo 0,00 €</p><div class="form-row"><label>Kirjaustapa<select id="financialEventMode"><option value="change">Kirjaa muutos + tai -</option><option value="set">Aseta uusi arvo</option></select></label><label>Merkki<select id="financialEventDirection"><option value="plus">+ lisää</option><option value="minus">- vähennä</option></select></label></div><div class="form-row"><label id="financialEventAmountLabel">Summa<input id="financialEventAmount" type="number" min="0" step="0.01" required /></label><label>Päivä<input id="financialEventDate" type="date" required /></label></div><label>Selite<input id="financialEventNote" type="text" placeholder="Esim. ylimääräinen lainanlyhennys" /></label><p id="financialEventResult" class="event-preview">Muutos 0,00 €</p><menu><button id="deleteFinancialEventBtn" class="ghost-button danger-ghost" type="button" hidden>Poista</button><button id="cancelFinancialEventBtn" class="ghost-button" type="button">Peru</button><button class="primary-button" type="submit">Tallenna tapahtuma</button></menu></form></dialog>
+  <dialog id="photoViewerDialog" class="photo-viewer-dialog"><button id="closePhotoViewerBtn" class="photo-close-button" type="button" aria-label="Sulje kuva">x</button><div class="photo-viewer-frame"><button id="prevPhotoBtn" class="photo-nav-button" type="button" aria-label="Edellinen kuva">‹</button><img id="photoViewerImage" alt="Kiinteistön kuva isona" /><button id="nextPhotoBtn" class="photo-nav-button" type="button" aria-label="Seuraava kuva">›</button></div><p id="photoViewerCaption" class="muted"></p></dialog>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- Supabase auth module (aseta tunnuksesi supabase-auth.js:ssä) -->
+  <script src="supabase-auth.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
